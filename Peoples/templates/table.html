@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Таблица {% endblock title %}
+
+
+{% block content %}
+    <table border="1">
+        <tr>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+        </tr>
+        {% for person in entities %}
+        <tr>
+            <td>{{ person.surname }}</td>
+            <td>{{ person.name }}</td>
+            <td>{{ person.last_name }}</td>
+        </tr>
+        {% endfor %}
+    </ol>
+{% endblock content %}

@@ -6,7 +6,7 @@
 """
 
 import sys
-from flask import Flask, render_template
+from flask import Flask, abort, render_template
 from faker import Faker
 
 
@@ -14,7 +14,7 @@ app = Flask(__name__)
 fake = Faker("ru_RU")
 
 
-def create_files() -> None:
+def create_files():
     with open("./files/humans.txt", 'w', encoding="utf-8") as humans_f:
         for _ in range(10):
             print(*fake.name().split(), sep=',', file=humans_f)
@@ -46,14 +46,47 @@ def get_names():
 
 
 @app.route("/table")
-def table():
+def get_usertable():
     entities = list()
-    with open("files/humans.txt", encoding="utf-8") as f:
+    with open("./files/humans.txt", encoding="utf-8") as f:
         for raw_line in f:
-            data = raw_line.strip().split(';')
-            entities.append({'last_name': data[0], 
-                            'name': data[1], 'surname': data[2]})
+            data = raw_line.strip().split(',')
+            entities.append({'last_name': data[0]
+                            ,'name': data[1]
+                            ,'surname': data[2]})
     return render_template('table.html', entities=entities)
+
+
+@app.route("/users")
+def get_usersinfo():
+    humans = []
+    with open('./files/users.txt', encoding='utf-8') as file:
+        for row in file:
+            raw_data = row.strip().split(';')
+            keys = ['login', 'full_name', 'sex', 'address', 'email', 'birthday']
+            user = {}
+            for i in range(len(raw_data)):
+                user[keys[i]] = raw_data[i]
+            humans.append(user)
+    return render_template('users_list.html', users_data=humans)
+
+
+@app.route("/users/<login>")
+def get_singleuserinfo(login):
+    user_data = None
+    with open('./files/users.txt', encoding='utf-8') as file:
+        for row in file:
+            raw_data = row.strip().split(';')
+            if raw_data[0] == login:
+                keys = ['login', 'full_name', 'sex', 'address', 'email', 'birthday']
+                user_data = {}
+                for i in range(len(raw_data)):
+                    user_data[keys[i]] = raw_data[i]
+                return render_template('user_info.html', user_data=user_data)
+    if user_data is None:
+        abort(404)
+
+
 
 
 

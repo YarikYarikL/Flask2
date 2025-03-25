@@ -1,18 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Names</title>
-</head>
-<body>
-    <h2>Список пользователей</h2>
- 
-    <ol>
+{% extends 'base.html' %}
+
+{% block title %} Имена {% endblock title %}
+
+
+{% block content %}
+    <ol class="names">
         {% for name in people_names %}
-            <li>Имя: {{ name }}</li>
+        <li>Имя: {{ name }}</li>
         {% endfor %}
     </ol>
-
-</body>
-</html>
+{% endblock content %}
