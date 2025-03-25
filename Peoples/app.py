@@ -51,10 +51,10 @@ def get_usertable():
     with open("./files/humans.txt", encoding="utf-8") as f:
         for raw_line in f:
             data = raw_line.strip().split(',')
-            entities.append({'last_name': data[0]
-                            ,'name': data[1]
-                            ,'surname': data[2]})
-    return render_template('table.html', entities=entities)
+            keys = ['last_name', 'name', 'surname']
+            person = dict(zip(keys, data))
+            entities.append(person)
+    return render_template('table.html', names_list=entities)
 
 
 @app.route("/users")
