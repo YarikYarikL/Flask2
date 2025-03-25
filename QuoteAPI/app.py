@@ -18,9 +18,9 @@ class Base(DeclarativeBase):
 BASE_DIR = Path(__file__).parent
 
 app = Flask(__name__)
-app.config['JSON_AS_ASCII'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{BASE_DIR / 'quotes.db'}"
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['JSON_AS_ASCII'] = False
+# app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{BASE_DIR / 'quotes.db'}"
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
