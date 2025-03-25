@@ -8,5 +8,5 @@ class Config:
     JSON_AS_ASCII = False
     SQLALCHEMY_DATABASE_URI = f"sqlite:///{BASE_DIR / 'quotes.db'}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    #для вывода SQL-запросов
-    SQLALCHEMY_ECHO = True
+    ##для вывода SQL-запросов
+    #SQLALCHEMY_ECHO = True

@@ -23,7 +23,7 @@ class QuoteModel(db.Model):
     def to_dict(self):
         return {
             "id": self.id
-            ,"author": self.author_id
+            ,"author_id": self.author_id
             ,"text": self.text
             ,"rating": self.rating
         }
