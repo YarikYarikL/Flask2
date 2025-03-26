@@ -60,7 +60,7 @@ def delete_author(author_id):
     db.session.delete(author)
     try:
         db.session.commit()
-        return f"Author id={author_id} deleted"
     except Exception as e:
         db.session.rollback()
         abort(503, f"database error: {str(e)}")
+    return jsonify(message=f"Author id={author_id} deleted"), 200
