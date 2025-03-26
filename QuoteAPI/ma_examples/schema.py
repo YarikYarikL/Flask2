@@ -15,3 +15,4 @@ class AuthorSchema(Schema):
          "required": {"message": "email is required", "code": 400}
          }
    )
+   surname = fields.Str()
