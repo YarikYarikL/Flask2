@@ -1,5 +1,5 @@
 from api import db
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship, WriteOnlyMapped
 from sqlalchemy import String
 
 
@@ -8,8 +8,10 @@ class AuthorModel(db.Model):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[int] = mapped_column(String(32), index=True, unique=True)
-    lastname: Mapped[str] = mapped_column(String(32), index=True, default='Smith', nullable=True)
-    quotes: Mapped[list['QuoteModel']] = relationship(back_populates='author', lazy='dynamic')
+    #default -> for new instance
+    #server_default -> for instances that already exist in table
+    lastname: Mapped[str] = mapped_column(String(32), index=True, default='unknown', server_default="Smirnov", nullable=True)
+    quotes: Mapped[WriteOnlyMapped] = relationship(back_populates='author')
 
     def __init__(self, name, lastname='Unknown'):
         self.name = name
