@@ -1,6 +1,7 @@
 from api import db
 from sqlalchemy.orm import Mapped, mapped_column, relationship, WriteOnlyMapped
 from sqlalchemy import String
+# from .quote import QuoteModel
 
 
 class AuthorModel(db.Model):
@@ -11,7 +12,7 @@ class AuthorModel(db.Model):
     #default -> for new instance
     #server_default -> for instances that already exist in table
     lastname: Mapped[str] = mapped_column(String(32), index=True, default='unknown', server_default="Smirnov", nullable=True)
-    quotes: Mapped[WriteOnlyMapped] = relationship(back_populates='author')
+    quotes: WriteOnlyMapped['QuoteModel']= relationship(back_populates='author')
 
     def __init__(self, name, lastname='Unknown'):
         self.name = name
