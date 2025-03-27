@@ -11,11 +11,13 @@ def get_user_by_id(user_id: int):
     user = db.get_or_404(UserModel, user_id, description=f'User with id={user_id} not found')
     return jsonify(user_schema.dump(user)), 200
 
+
 # url: /users
 @app.route('/users', methods=['GET'])
 def get_users():
     users_db = db.session.scalars(db.select(UserModel)).all()
     return jsonify(users_schema.dump(users_db)), 200
+
 
 # url: /users
 @app.route('/users', methods=['POST'])
