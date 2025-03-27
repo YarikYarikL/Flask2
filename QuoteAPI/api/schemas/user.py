@@ -1,6 +1,7 @@
+from flask import request
 from api import ma
 from api.models.user import UserModel
-from marshmallow import validate, fields
+from marshmallow import post_load, validate, fields
 
 
 class UserSchema(ma.SQLAlchemyAutoSchema):
