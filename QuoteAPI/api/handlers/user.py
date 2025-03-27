@@ -23,8 +23,7 @@ def get_users():
 @app.route('/users', methods=['POST'])
 def create_user():
     try:
-        user_data = user_schema.loads(request.data)
-        user = UserModel(**user_data)
+        user = user_schema.loads(request.data)
         db.session.add(user)
         db.session.commit()
     except ValidationError as ve:
