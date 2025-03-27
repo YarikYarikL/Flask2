@@ -43,7 +43,6 @@ def verify_password(username, password):
 def verify_token(token):
    from api.models.user import UserModel
    user = UserModel.verify_auth_token(token)
-   print(f"{user=}")
    return user
 
 
@@ -52,3 +51,8 @@ from api.handlers import author
 from api.handlers import quote
 from api.handlers import user
 from api.handlers import token
+
+
+#add auth blueprint
+from api.auth.views import auth as bp_auth
+app.register_blueprint(bp_auth)

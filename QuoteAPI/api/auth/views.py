@@ -3,7 +3,7 @@ from api.auth.forms import LoginForm, RegistrationForm
 from flask import render_template, request, redirect, url_for, abort, session, Blueprint, flash
 from api import db
 
-auth = Blueprint('auth', __name__)
+auth = Blueprint("auth", __name__)
 
 
 @auth.get("/auth")
@@ -12,9 +12,9 @@ def home():
     return render_template("home.html")
 
 
-@auth.route("/auth/register", methods=["GET, POST"])
+@auth.route("/auth/register", methods=["GET", "POST"])
 def register():
-    #проверка тотЁ что пользователь уже залогинен
+    #проверка того, что пользователь уже залогинен
     #если он залогиненЁ то он уже есть в сессии
     if session.get("username"):
         flash("You are already logged in", "info")
@@ -25,7 +25,7 @@ def register():
         username = request.form.get("username")
         password = request.form.get("password")
         #проверка на наличие такого же пользователя
-        existing_username = db.session.scalars(db.select(UserModel).where(UserModel.username.like("%"+username+"%")))
+        existing_username = db.session.scalars(db.select(UserModel).where(UserModel.username.like("%" + username + "%"))).all()
 
         if existing_username:
             flash("This user already exists. Try another name", "waring")
@@ -47,7 +47,8 @@ def register():
     return render_template("register.html", form=form)
 
 
-@auth.route("/auth/login", methods=["GET, POST"])
+
+@auth.route("/auth/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -71,6 +72,7 @@ def login():
         flash(form.errors, "danger")
     #GET request
     return render_template("login.html", form=form)
+
 
 
 @auth.route("/auth/logout")

@@ -7,7 +7,7 @@ from wtforms.validators import InputRequired, EqualTo
 class RegistrationForm(FlaskForm):
     username = StringField('Username', [InputRequired()])
     password = PasswordField('Password', [InputRequired(), EqualTo('confirm', message='Password must math')])
-    confirm = PasswordField('Confirm', [InputRequired()])
+    confirm = PasswordField('Confirm password', [InputRequired()])
 
 
 # форма для логина
